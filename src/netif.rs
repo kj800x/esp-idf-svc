@@ -468,7 +468,7 @@ impl EspNetif {
         Ok(unsafe { from_cstr_ptr(ptr).into() })
     }
 
-    fn set_hostname(&mut self, hostname: &str) -> Result<(), EspError> {
+    pub fn set_hostname(&mut self, hostname: &str) -> Result<(), EspError> {
         if let Ok(hostname) = CString::new(hostname) {
             esp!(unsafe { esp_netif_set_hostname(self.0, hostname.as_ptr() as *const _) })?;
         } else {
@@ -637,7 +637,7 @@ mod status {
 
     use alloc::sync::Arc;
 
-    use ::log::info;
+    use log::info;
 
     use esp_idf_sys::*;
 
